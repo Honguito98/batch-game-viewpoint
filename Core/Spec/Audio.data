@@ -1,0 +1,102 @@
+::Main
+If %1==1 (
+	Set I=856.726
+	Set F=860.676
+	Set Mode=Single
+	)
+::Level 1
+If %1==2 (
+	Set I=0.050
+	Set N=8.860
+	Set F=40.116
+	Set Mode=Loop
+	)
+::Level 2
+If %1==3 (
+	Set I=40.361
+	Set N=57.331
+	Set F=171.828
+	Set Mode=Loop
+	)
+::Level 3
+If %1==4 (
+	Set I=171.931
+	Set N=172.207
+	Set F=230.627
+	Set Mode=Loop
+	)
+::Level 4
+If %1==5 (
+	Set I=231.669
+	Set N=240.036
+	Set F=325.915
+	Set Mode=Loop
+	)
+::Level 5
+If %1==6 (
+	Set I=326.299
+	Set N=328.500
+	Set F=426.983
+	Set Mode=Loop
+	)
+::Level 6
+If %1==7 (
+	Set I=427.760
+	Set N=443.411
+	Set F=529.300
+	Set Mode=Loop
+	)
+::Final Boss
+If %1==8 (
+	Set I=529.409
+	Set F=576.292
+	Set Mode=Single
+	)
+::Boss
+If %1==9 (
+	Set I=782.377
+	Set F=841.402
+	Set Mode=Single
+	)
+	If !Mode!==Single (
+	(
+	Echo.@Echo Off
+	Echo.SetLocal EnableExtensions
+	Echo.Set I=!I!
+	Echo.Set F=!F!
+	Echo.Title [VpM]
+	Echo.For /F "Tokens=1-4 Delims=." %%%%a In ("%%F%%.%%I%%"^) Do (
+	Echo.	Set _F=%%%%a%%%%b
+	Echo.	Set _I=%%%%c%%%%d
+	Echo.^)
+	Echo.Set/a S=%%_F%%-%%_I%%-1
+	Echo.:Loop
+	Echo.Start /min %Au% Core\Audio.str -q -d trim %%I%% =%%F%%
+	Echo.!ui! Sleep %%s%%
+	Echo.Goto:Loop
+	)>"!Tmp!\AudioR.Bat"
+)
+	If !Mode!==Loop (
+	(
+	Echo.@Echo Off
+	Echo.SetLocal EnableExtensions
+	Echo.Set I=!I!
+	Echo.Set N=!N!
+	Echo.Set F=!F!
+	Echo.Title [VpM]
+	Echo.For /F "Tokens=1-6 Delims=." %%%%a in ("%%I%%.%%N%%.%%F%%"^) Do (
+	Echo.	Set _I=%%%%a%%%%b
+	Echo.	Set _N=%%%%c%%%%d
+	Echo.	Set _F=%%%%e%%%%f
+	Echo.^)
+	Echo.Set/a S1=%%_N%%-%%_I%%-1,S2=%%_F%%-%%_N%%-1
+	Echo.Start /min %AU% Core\Audio.str -q  -d trim %%I%% =%%N%%
+	Echo.!ui! Sleep %%S1%%
+	Echo.:Loop
+	Echo.Start /min %AU% Core\Audio.str -q -d trim %%N%% =%%F%%
+	Echo.!Ui! Sleep %%S2%%
+	Echo.Goto:Loop
+	)>"!Tmp!\AudioR.Bat"
+)
+	Start /Min "." "!Tmp!\AudioR.Bat"
+	Exit/b 0

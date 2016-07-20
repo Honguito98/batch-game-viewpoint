@@ -1,0 +1,63 @@
+If %1==1 (
+	Set Phases=6
+	Set Track=2
+	Set LifeBoss=12
+	Set "CBorder=±.5;1;46;34"
+	set "GR=1;34"
+	Set Enemy=
+	Set   Boss=
+	Set Again=1
+)
+If %1==2 (
+	Set Phases=7
+	Set Track=3
+	Set LifeBoss=13
+	Set "CBorder=°.1;1;46;36"
+	set "GR=0;36"
+	Set Enemy=”
+	Set   Boss=æ
+	Set Again=1
+)
+If %1==3 (
+	Set Phases=8
+	Set Track=4
+	Set LifeBoss=14
+	Set "CBorder=±.1;1;42;32"
+	set "GR=0;32"
+	Set Enemy=‰
+	Set   Boss=”
+	Set Again=1
+	)
+If %1==4 (
+	Set Phases=9
+	Set Track=5
+	Set LifeBoss=15
+	Set "CBorder=².1;0;47;31"
+	set "GR=0;33"
+	Set Enemy=‹
+	Set   Boss=¾
+	Set Again=1
+)
+If %1==5 (
+	Set Phases=10
+	Set Track=6
+	Set LifeBoss=16
+	Set "CBorder=².1;1;43;31"
+	set "GR=1;31"
+	Set Enemy=Ð
+	Set   Boss=â
+	Set Again=1
+)
+If %1==6 (
+	Set Phases=11
+	Set Track=7
+	Set OgLifeBoss=17
+	Set LifeBoss=17
+	Set "CBorder=².5;1;42;35"
+	set "GR=1;35"
+	Set Enemy=š
+	Set   Boss=å
+	Set Ground=Å
+	Set Again=2
+)
+	Exit/b 0

@@ -1,0 +1,69 @@
+	Call :set
+	!ui! font 0
+	mode 77,30
+	Set "spp=!spp!        "
+:L1
+	call :Rst1 8
+	If !Count! Geq 150 If Defined spp (set "Spp=!Spp:~1!"&Set Count=0)
+	If Not Defined Spp (Set Spp=   &Goto :L2)
+	goto :L1
+:L2
+	Call :Rst1 7
+	If !Count! Geq 100 (Set Count=0&Goto :L3)
+	Goto :L2
+:L3	
+	Call :Rst1 8
+	If !Count! Geq 100 (Set Count=0&Goto :L4)
+	Goto :L3
+:L4
+	Call :Rst1 4
+	If !Count! Geq 100 (Set Count=0&Goto :L5)
+	Goto :L4
+:L5
+	Call :Rst1 4
+	If !Count! Geq 100 (Set Count=0&Goto :L6)
+	!ui! Sleep 20
+	Goto :L5
+:L6
+	Call :Rst1 2
+	If !Count! Geq 100 (Set Count=0&Goto :L7)
+	!ui! Sleep 20
+	Goto :L6
+:L7
+	Call :Rst1 2
+	If !Count! Geq 100 (Set Count=0&Goto :L8)
+	!ui! Sleep 40
+	Goto :L7
+:L8
+	Echo.[5;1H
+	For /l %%a in (1,1,11) Do Echo.  [0;1;40;36m!h%%a![;m
+	!ui! Sleep 1500
+	For %%a in (0f,0f,07,07,08,08) Do (
+		Ping -n 1 localhost>nul
+		Color %%a
+	)
+	Cls
+	Goto :Eof
+:Rst1 [x]
+	if "!w!"=="+" (set "e=!e! ") else (set "e=!e:~0,-1!")
+	set/a "y+=1,x!w!=1,count+=1"
+	if !x! geq %1 set w=-
+	if !x! leq 1  set w=+
+	if !y! geq 13 <nul set/p "=[6;1H!ips!"&set y=0&set ips=&goto:eof
+	set "ips=!ips!!e![0;1;40;36m!h%y%![;m!Spp!!lf!"
+	goto:rst1
+	
+	:set 
+	set "E= "
+	Set W=+
+	set lf=^
+
+
+	Set/a X=0,Y=0,Count=0,C=0
+	Set Ips=
+	Set Spp=
+	For /l %%a in (1,1,14) Do Set h%%a=
+	For /f "tokens=* delims=" %%a in ('type Core\Spec\logo') do (
+	Set/a c+=1
+	Set "h!C!=%%a"
+	)

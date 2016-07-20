@@ -1,0 +1,111 @@
+	Set/a w=0,Count=0,tm=0
+	Set World=All
+	Set Border=
+	Set z=
+	For /l %%a in (1,1,30) Do set "Border=!Border![0;0;40;30mÿ[;m"
+	For /F %%a in ('Type Core\Spec\End1') Do (
+		Set/a w+=1
+		Set "V[!w!]=!Border!%%a!Border!"
+	)
+	:EndRun
+	%Dip%[1;1H
+	For /L %%a in (1,1,!W!) Do (
+	%Dip%!V[%%a]:~%Count%,510!
+)
+	%ui% Sleep 300
+	Set/a Count+=17
+	If !count! Geq 510 Goto :EndRun1
+	Goto :EndRun
+	:EndRun1
+	Set/a Count-=17
+	For /L %%a in (1,1,!W!) Do (
+	Set "z=!Z!!V[%%a]:~%Count%,510!"
+)
+	%ui% Sleep 2000
+	For %%a in (6.7,8.6,9.5) Do (
+	For /F "Tokens=1-2 Delims=." %%x in ("%%a") Do Set/a Y=%%x,X=%%y
+	%Dip%[1;1H!Z!
+	%Dip%[!Y!;!X!H[1;37m!Player!
+	%ui% Sleep 100
+	)
+	For /l %%a in (5,1,30) Do (
+	%Dip%[1;1H!Z!
+	%Dip%[!Y!;%%aH[1;37m!Player!
+	IF %%a Equ 30 %Dip%[!Y!;%%aH[1;37m 
+	%ui% Sleep 100
+	)
+	%ui% Sleep 1200
+	:EndRun2
+	Set/a Rnx=!Random!*10/32768+9,Rny=!Random!*7/32768+3
+	For /l %%a in (1,1,4) Do (
+	%Dip%[1;1H!Z!
+	%Dip%[1;31m[!Rny!;!Rnx!H!F%%a!
+	)
+	Set/a Tm+=1
+	If !Tm! Geq 10 Goto :EndRun3
+	Goto :EndRun2
+	:EndRun3
+	Set Z=
+	For /F %%a in ('Type Core\Spec\End2') Do Set "z=!Z! %%a  "
+	Set Tm=0
+	:EndRun3_
+	Set/a Rnx=!Random!*8/32768+7,Rny=!Random!*5/32768+2
+	For /l %%a in (1,1,4) Do (
+	%Dip%[1;1H!Z!
+	%Dip%[1;31m[!Rny!;!Rnx!H!F%%a!
+	)
+	Set/a Tm+=1
+	If !Tm! Geq 10 Goto :EndRun4
+	Goto :EndRun3_
+	:EndRun4
+	Set Z=
+	For /F %%a in ('Type Core\Spec\End3') Do Set "z=!Z! %%a  "
+	Set Tm=0
+	:EndRun4_
+	Set/a Rnx=!Random!*8/32768+7,Rny=!Random!*5/32768+2
+	For /l %%a in (1,1,4) Do (
+	%Dip%[1;1H!Z!
+	%Dip%[1;31m[!Rny!;!Rnx!H!F%%a!
+	)
+	Set/a Tm+=1
+	If !Tm! Geq 10 Goto :EndRun5
+	Goto :EndRun4_
+	:EndRun5
+	Set Z=
+	For /F %%a in ('Type Core\Spec\End4') Do Set "z=!Z! %%a  "
+	Set Tm=0
+	:EndRun5_
+	Set/a Rnx=!Random!*8/32768+7,Rny=!Random!*5/32768+2
+	For /l %%a in (1,1,4) Do (
+	%Dip%[1;1H!Z!
+	%Dip%[1;31m[!Rny!;!Rnx!H!F%%a!
+	)
+	Set/a Tm+=1
+	If !Tm! Geq 10 Goto :EndRun6
+	Goto :EndRun5_
+	:EndRun6
+	%Dip%[1;1H!Z!
+	Set "Z=!Z!!border!!Border!"
+	Set w=0
+	For /F "Tokens=* Delims=" %%a in ('Type Core\Spec\Credits') Do (
+	Set/a W+=1
+	Set "V[!W!]=%%a"
+	)
+	For /l %%# in (1,1,!W!) Do (
+	Set "V[%%#]=!V[%%#]:®=[1;33m®!"
+	Set "V[%%#]=!V[%%#]:¯=¯[1;37m!"
+	Set "V[%%#]=!V[%%#]:þ=[1;32mþ[1;37m!"
+)	
+	Set/a Maxv=13,Minv=1
+	:EndRun6_
+	%Dip%[1;1H!Z![1;1H[1;37m
+	For /l %%a in (!Minv!,1,!Maxv!) Do (
+	%Dip%. !V[%%a]!!LF!
+	)
+	Set/a Maxv+=1,Minv+=1
+	%ui% Sleep 500
+	If !Maxv! Geq 220 Goto :End__
+	Goto :EndRun6_
+	:End__
+	%ui% Sleep 1000
+	Goto :Eof
