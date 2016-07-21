@@ -11,7 +11,7 @@ The music and sfx sources was recorded from the original game, thus i am not the
 ![howto](http://i1060.photobucket.com/albums/t452/honguito98/viewpoint_howto.png)
 
 ## How to download?
-Do click on the green button () located at near of file list of this project (at right side).
+Do click on "Clone/Download" button, then click "Download ZIP"
 
 ## Some screenshots
 ![img1](http://i1060.photobucket.com/albums/t452/honguito98/viewpoint_init.png)
